@@ -1,0 +1,95 @@
+[
+  {
+    "id": "task-401-priya-msft-resume",
+    "studentId": "stud-102-priya-ece",
+    "title": "Submit resume on Superset portal for Microsoft recruitment drive",
+    "description": "Upload latest 1-page technical resume and verify 10th/12th/B.Tech percentage records.",
+    "deadline": "2026-09-20T23:59:59.000Z",
+    "status": "pending",
+    "priority": "critical",
+    "sourceNoticeId": "notif-201-placement-msft",
+    "createdAt": "2026-09-10T09:00:00.000Z",
+    "updatedAt": "2026-09-10T09:00:00.000Z"
+  },
+  {
+    "id": "task-402-priya-msft-prep",
+    "studentId": "stud-102-priya-ece",
+    "title": "Practice Microsoft online assessment mock questions on LeetCode/HackerRank",
+    "description": "Review data structures (Trees, Graphs, DP) and core OS/Networking concepts.",
+    "deadline": "2026-09-24T18:00:00.000Z",
+    "status": "pending",
+    "priority": "high",
+    "sourceNoticeId": "notif-201-placement-msft",
+    "createdAt": "2026-09-10T09:15:00.000Z",
+    "updatedAt": "2026-09-10T09:15:00.000Z"
+  },
+  {
+    "id": "task-403-aarav-hacksprint-abstract",
+    "studentId": "stud-101-aarav-cse",
+    "title": "Submit team project abstract for HackSprint 2026 AI Track",
+    "description": "Finalize architecture diagram and problem statement for Smart Campus AI assistant.",
+    "deadline": "2026-09-28T23:59:59.000Z",
+    "status": "pending",
+    "priority": "high",
+    "sourceNoticeId": "notif-204-hackathon-hacksprint",
+    "createdAt": "2026-09-03T11:00:00.000Z",
+    "updatedAt": "2026-09-03T11:00:00.000Z"
+  },
+  {
+    "id": "task-404-aarav-elective-select",
+    "studentId": "stud-101-aarav-cse",
+    "title": "Select Open Elective courses on ERP portal",
+    "description": "Choose Applied Machine Learning as 1st preference and Financial Engineering as 2nd preference.",
+    "deadline": "2026-09-22T17:00:00.000Z",
+    "status": "pending",
+    "priority": "medium",
+    "sourceNoticeId": "notif-205-academic-elective",
+    "createdAt": "2026-09-02T10:00:00.000Z",
+    "updatedAt": "2026-09-02T10:00:00.000Z"
+  },
+  {
+    "id": "task-405-aarav-cloud-cert",
+    "studentId": "stud-101-aarav-cse",
+    "title": "Complete Google Cloud Skills Boost lab exercises",
+    "description": "Finish Generative AI Fundamentals badge for extra curriculum credits.",
+    "deadline": "2026-09-30T23:59:59.000Z",
+    "status": "completed",
+    "priority": "low",
+    "createdAt": "2026-08-20T14:00:00.000Z",
+    "updatedAt": "2026-09-01T16:00:00.000Z"
+  },
+  {
+    "id": "task-406-rohan-nsp-income-cert",
+    "studentId": "stud-103-rohan-me",
+    "title": "Obtain Revenue Department Income Certificate for NSP Scholarship",
+    "description": "Collect signed Tehsildar income certificate and photocopy of electricity bill.",
+    "deadline": "2026-09-25T15:00:00.000Z",
+    "status": "pending",
+    "priority": "critical",
+    "sourceNoticeId": "notif-202-scholarship-nsp",
+    "createdAt": "2026-09-08T11:30:00.000Z",
+    "updatedAt": "2026-09-08T11:30:00.000Z"
+  },
+  {
+    "id": "task-407-rohan-baja-cad",
+    "studentId": "stud-103-rohan-me",
+    "title": "Finish suspension CAD modeling for SAE BAJA vehicle",
+    "description": "Run SolidWorks FEA simulations for double wishbone suspension arm.",
+    "deadline": "2026-10-01T18:00:00.000Z",
+    "status": "pending",
+    "priority": "medium",
+    "createdAt": "2026-08-28T16:00:00.000Z",
+    "updatedAt": "2026-08-28T16:00:00.000Z"
+  },
+  {
+    "id": "task-408-priya-library-return",
+    "studentId": "stud-102-priya-ece",
+    "title": "Renew/Return Embedded Systems reference textbook to Central Library",
+    "description": "Book title: \"Embedded Systems Architecture\" by Tammy Noergaard.",
+    "deadline": "2026-09-18T16:30:00.000Z",
+    "status": "completed",
+    "priority": "low",
+    "createdAt": "2026-09-04T12:00:00.000Z",
+    "updatedAt": "2026-09-09T15:00:00.000Z"
+  }
+]

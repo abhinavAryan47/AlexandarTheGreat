@@ -1,0 +1,47 @@
+[
+  {
+    "id": "notif-201-placement-msft",
+    "title": "Campus Recruitment Drive 2026 - Microsoft SDE & Support Engineering",
+    "content": "The Training & Placement Cell (T&P) is pleased to announce the on-campus recruitment drive for Microsoft India. Eligible students from B.Tech 4th Year (CSE, IT, ECE) with CGPA >= 8.00 and no active backlogs may apply. Package: 44 LPA CTC. Online coding assessment will be conducted on 25th September 2026 at 6:00 PM IST. Last date to submit your resume on the Superset T&P portal is 20th September 2026, 11:59 PM.",
+    "source": "Training & Placement Cell",
+    "category": "placement",
+    "createdAt": "2026-09-10T08:30:00.000Z",
+    "updatedAt": "2026-09-10T08:30:00.000Z"
+  },
+  {
+    "id": "notif-202-scholarship-nsp",
+    "title": "National Merit-cum-Means Post-Matric Scholarship Scheme 2026-27",
+    "content": "Applications are invited from 1st, 2nd, and 3rd-year undergraduate students for the National Scholarship Portal (NSP) Merit-cum-Means Financial Assistance. Annual family income must be below INR 4,50,000 per annum, and candidate must have maintained a minimum of 75% marks / 7.5 CGPA in the preceding academic year. Submit certified income certificate, caste certificate (if applicable), fee receipt, and bank passbook photocopy to Academic Section Counter 3 by 30th September 2026.",
+    "source": "Dean of Student Welfare Office",
+    "category": "scholarship",
+    "createdAt": "2026-09-08T10:00:00.000Z",
+    "updatedAt": "2026-09-08T10:00:00.000Z"
+  },
+  {
+    "id": "notif-203-exam-midsem",
+    "title": "Mid-Semester Examinations Schedule - Autumn Semester 2026",
+    "content": "All undergraduate students across 1st to 4th year are hereby notified that the Autumn 2026 Mid-Semester Examinations will commence from 12th October 2026 and conclude on 19th October 2026. Hall tickets will be made available on the ERP portal starting 5th October 2026. Minimum 75% attendance is strictly mandatory to be eligible to write the exams. Contact your respective department HOD office for attendance condensation appeals by 3rd October 2026.",
+    "source": "Controller of Examinations",
+    "category": "examination",
+    "createdAt": "2026-09-05T12:00:00.000Z",
+    "updatedAt": "2026-09-05T12:00:00.000Z"
+  },
+  {
+    "id": "notif-204-hackathon-hacksprint",
+    "title": "HackSprint 2026 - Inter-College 36-Hour Hackathon & Innovation Summit",
+    "content": "The ACM Student Chapter invites multidisciplinary student teams (3-4 members per team) for HackSprint 2026 sponsored by Google Cloud, GitHub, and Devfolio. Tracks include AI & Healthcare, Smart Cities, Decentralized Finance, and CleanTech. Cash prize pool worth INR 2,50,000 + cloud credits. Round 1 abstract submission deadline is 28th September 2026. Shortlisted teams will participate in the offline hackathon on 17th-18th October 2026 at the Main Auditorium.",
+    "source": "ACM Student Chapter & Dept. of CSE",
+    "category": "event",
+    "createdAt": "2026-09-02T15:30:00.000Z",
+    "updatedAt": "2026-09-02T15:30:00.000Z"
+  },
+  {
+    "id": "notif-205-academic-elective",
+    "title": "Open Elective & Audit Course Selection for Spring Semester 2027",
+    "content": "Students currently in 2nd and 3rd Year must freeze their Open Elective and Audit course preferences for the upcoming Spring 2027 semester on the Academic Portal. Available courses include Applied Machine Learning, Renewable Energy Systems, Financial Engineering, and Technical Writing. Portal opens on 15th September 2026 at 10:00 AM and closes strictly on 22nd September 2026 at 5:00 PM. Allocation is on a first-come, first-served basis according to CGPA.",
+    "source": "Dean of Academic Affairs",
+    "category": "academic",
+    "createdAt": "2026-09-01T09:00:00.000Z",
+    "updatedAt": "2026-09-01T09:00:00.000Z"
+  }
+]

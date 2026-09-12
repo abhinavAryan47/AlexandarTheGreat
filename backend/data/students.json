@@ -1,0 +1,77 @@
+[
+  {
+    "id": "stud-101-aarav-cse",
+    "name": "Aarav Sharma",
+    "email": "aarav.sharma@campus.edu.in",
+    "year": 3,
+    "branch": "Computer Science and Engineering",
+    "cgpa": 8.85,
+    "academicInterests": [
+      "Artificial Intelligence",
+      "Distributed Systems",
+      "Cloud Computing"
+    ],
+    "placementPreferences": [
+      "Software Development Engineer",
+      "Full Stack Developer",
+      "AI/ML Engineer"
+    ],
+    "extracurricularInterests": [
+      "Competitive Coding",
+      "Robotics Club",
+      "Hackathons"
+    ],
+    "createdAt": "2026-08-01T09:00:00.000Z",
+    "updatedAt": "2026-09-01T10:00:00.000Z"
+  },
+  {
+    "id": "stud-102-priya-ece",
+    "name": "Priya Patel",
+    "email": "priya.patel@campus.edu.in",
+    "year": 4,
+    "branch": "Electronics and Communication Engineering",
+    "cgpa": 9.15,
+    "academicInterests": [
+      "Embedded Systems",
+      "IoT Architecture",
+      "Signal Processing"
+    ],
+    "placementPreferences": [
+      "Firmware Engineer",
+      "Core Hardware R&D",
+      "Systems Engineer"
+    ],
+    "extracurricularInterests": [
+      "IEEE Student Chapter",
+      "Quiz Club",
+      "Debate Society"
+    ],
+    "createdAt": "2026-08-01T09:30:00.000Z",
+    "updatedAt": "2026-09-05T14:20:00.000Z"
+  },
+  {
+    "id": "stud-103-rohan-me",
+    "name": "Rohan Verma",
+    "email": "rohan.verma@campus.edu.in",
+    "year": 2,
+    "branch": "Mechanical Engineering",
+    "cgpa": 7.6,
+    "academicInterests": [
+      "Automotive CAD/CAM",
+      "Thermal Dynamics",
+      "Mechatronics"
+    ],
+    "placementPreferences": [
+      "Design Engineer",
+      "Product Engineering",
+      "Operations Analyst"
+    ],
+    "extracurricularInterests": [
+      "SAE BAJA Team",
+      "Sports Committee",
+      "Cultural Fest Core"
+    ],
+    "createdAt": "2026-08-10T11:15:00.000Z",
+    "updatedAt": "2026-08-25T16:45:00.000Z"
+  }
+]

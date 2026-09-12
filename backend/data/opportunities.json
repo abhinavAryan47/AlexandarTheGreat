@@ -1,0 +1,52 @@
+[
+  {
+    "id": "opp-301-msft-sde",
+    "noticeId": "notif-201-placement-msft",
+    "title": "Microsoft India Campus SDE Role",
+    "category": "placement",
+    "description": "On-campus placement opportunity for 4th-year students with CGPA >= 8.0 for Software Development Engineer role.",
+    "deadline": "2026-09-20T23:59:59.000Z",
+    "createdAt": "2026-09-10T08:35:00.000Z",
+    "updatedAt": "2026-09-10T08:35:00.000Z"
+  },
+  {
+    "id": "opp-302-nsp-scholarship",
+    "noticeId": "notif-202-scholarship-nsp",
+    "title": "NSP Merit-cum-Means Scholarship Grant",
+    "category": "scholarship",
+    "description": "Financial assistance grant up to INR 50,000 per year for students with family income < 4.5 LPA and CGPA >= 7.5.",
+    "deadline": "2026-09-30T17:00:00.000Z",
+    "createdAt": "2026-09-08T10:05:00.000Z",
+    "updatedAt": "2026-09-08T10:05:00.000Z"
+  },
+  {
+    "id": "opp-303-hacksprint-hackathon",
+    "noticeId": "notif-204-hackathon-hacksprint",
+    "title": "HackSprint 2026 Hackathon Team Registration",
+    "category": "event",
+    "description": "36-hour national inter-college hackathon with INR 2.5 Lakh prize pool and internship opportunities.",
+    "deadline": "2026-09-28T23:59:59.000Z",
+    "createdAt": "2026-09-02T15:35:00.000Z",
+    "updatedAt": "2026-09-02T15:35:00.000Z"
+  },
+  {
+    "id": "opp-304-spring27-electives",
+    "noticeId": "notif-205-academic-elective",
+    "title": "Open Elective Registration Spring 2027",
+    "category": "academic",
+    "description": "Course selection for Applied ML, Renewable Energy, and Financial Engineering on ERP portal.",
+    "deadline": "2026-09-22T17:00:00.000Z",
+    "createdAt": "2026-09-01T09:10:00.000Z",
+    "updatedAt": "2026-09-01T09:10:00.000Z"
+  },
+  {
+    "id": "opp-305-midsem-exam-admit",
+    "noticeId": "notif-203-exam-midsem",
+    "title": "Mid-Sem Exam Hall Ticket Download & Attendance Verification",
+    "category": "examination",
+    "description": "Download verified examination hall tickets for Mid-Semester exams commencing 12th October 2026.",
+    "deadline": "2026-10-05T23:59:59.000Z",
+    "createdAt": "2026-09-05T12:05:00.000Z",
+    "updatedAt": "2026-09-05T12:05:00.000Z"
+  }
+]
