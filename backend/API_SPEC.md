@@ -1,6 +1,6 @@
-# AlexandarTheGreat Backend — API Specification (Phase 1)
+# AlexandarTheGreat Backend — Complete API Specification
 
-This specification defines the complete REST API contract for the **AlexandarTheGreat** backend. The frontend team can build UI components, hooks, and services directly against this specification without needing to read backend implementation code.
+This specification defines the complete REST API contract for the **AlexandarTheGreat** backend (Phases 1 through 5). The frontend team can build UI components, hooks, dashboards, and agent chat interfaces directly against this contract without inspecting backend source code.
 
 ---
 
@@ -12,7 +12,7 @@ http://localhost:5001
 ```
 
 ### Headers
-- `Content-Type: application/json` (for all POST/PATCH requests)
+- `Content-Type: application/json`
 - `Accept: application/json`
 
 ### Standard Response Envelopes
@@ -25,7 +25,7 @@ http://localhost:5001
 }
 ```
 
-#### Error Envelope (`400 Bad Request`, `404 Not Found`, `500 Internal Server Error`)
+#### Error Envelope (`400 Bad Request`, `404 Not Found`, `500 Internal Server Error`, `503 Service Unavailable`)
 ```json
 {
   "success": false,
@@ -45,7 +45,6 @@ http://localhost:5001
 Returns the operational health and identity of the backend service.
 
 - **Status**: `200 OK`
-- **Request Body**: None
 - **Response**:
 ```json
 {
@@ -61,87 +60,17 @@ Returns the operational health and identity of the backend service.
 
 ## 3. Student Profile Endpoints
 
-### Data Model: `Student`
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `id` | string (UUID) | Unique student identifier |
-| `name` | string | Full name of the student |
-| `email` | string | University email address |
-| `year` | number (1-5) | Current academic year |
-| `branch` | string | Academic discipline/department |
-| `cgpa` | number (0.0-10.0) | Cumulative Grade Point Average |
-| `academicInterests` | string[] | Core technical/academic fields of interest |
-| `placementPreferences` | string[] | Preferred career/job profiles |
-| `extracurricularInterests` | string[] | Clubs, sports, societies |
-| `createdAt` | string (ISO 8601) | Record creation timestamp |
-| `updatedAt` | string (ISO 8601) | Record last update timestamp |
-
----
-
 ### `GET /api/students`
 Fetches a list of all registered students.
 
 - **Status**: `200 OK`
-- **Request Body**: None
-- **Example Response**:
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "stud-101-aarav-cse",
-      "name": "Aarav Sharma",
-      "email": "aarav.sharma@campus.edu.in",
-      "year": 3,
-      "branch": "Computer Science and Engineering",
-      "cgpa": 8.85,
-      "academicInterests": ["Artificial Intelligence", "Cloud Computing"],
-      "placementPreferences": ["Software Development Engineer"],
-      "extracurricularInterests": ["Competitive Coding", "Hackathons"],
-      "createdAt": "2026-08-01T09:00:00.000Z",
-      "updatedAt": "2026-09-01T10:00:00.000Z"
-    }
-  ]
-}
-```
 
 ---
 
 ### `GET /api/students/:id`
 Fetches a single student profile by ID.
 
-- **Path Parameters**:
-  - `id` (string, required): Student ID
 - **Status**: `200 OK` (or `404 Not Found`)
-- **Example Response (200)**:
-```json
-{
-  "success": true,
-  "data": {
-    "id": "stud-101-aarav-cse",
-    "name": "Aarav Sharma",
-    "email": "aarav.sharma@campus.edu.in",
-    "year": 3,
-    "branch": "Computer Science and Engineering",
-    "cgpa": 8.85,
-    "academicInterests": ["Artificial Intelligence", "Cloud Computing"],
-    "placementPreferences": ["Software Development Engineer"],
-    "extracurricularInterests": ["Competitive Coding", "Hackathons"],
-    "createdAt": "2026-08-01T09:00:00.000Z",
-    "updatedAt": "2026-09-01T10:00:00.000Z"
-  }
-}
-```
-- **Example Response (404)**:
-```json
-{
-  "success": false,
-  "error": {
-    "code": "STUDENT_NOT_FOUND",
-    "message": "Student with id non-existent-id not found"
-  }
-}
-```
 
 ---
 
@@ -149,7 +78,7 @@ Fetches a single student profile by ID.
 Creates a new student profile.
 
 - **Status**: `201 Created` (or `400 Bad Request`)
-- **Example Request Body**:
+- **Example Request**:
 ```json
 {
   "name": "Sneha Rao",
@@ -162,132 +91,29 @@ Creates a new student profile.
   "extracurricularInterests": ["CTF Team", "Debate Club"]
 }
 ```
-- **Example Response (201)**:
-```json
-{
-  "success": true,
-  "data": {
-    "id": "8f8b83e6-0562-430c-be4e-fc9c8dbecfb7",
-    "name": "Sneha Rao",
-    "email": "sneha.rao@campus.edu.in",
-    "year": 3,
-    "branch": "Information Technology",
-    "cgpa": 8.92,
-    "academicInterests": ["Cybersecurity", "Distributed Systems"],
-    "placementPreferences": ["Security Engineer", "DevOps Specialist"],
-    "extracurricularInterests": ["CTF Team", "Debate Club"],
-    "createdAt": "2026-09-12T10:00:00.000Z",
-    "updatedAt": "2026-09-12T10:00:00.000Z"
-  }
-}
-```
-- **Example Response (400 Validation Error)**:
-```json
-{
-  "success": false,
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Invalid request body",
-    "details": [
-      { "field": "email", "message": "Invalid email address" },
-      { "field": "cgpa", "message": "CGPA cannot exceed 10.0" }
-    ]
-  }
-}
-```
 
 ---
 
 ### `PATCH /api/students/:id`
 Updates fields in an existing student profile.
 
-- **Path Parameters**:
-  - `id` (string, required): Student ID
-- **Request Body**: Partial<Student> (any subset of student fields)
-- **Status**: `200 OK` (or `404 Not Found` / `400 Bad Request`)
-- **Example Request Body**:
-```json
-{
-  "cgpa": 9.1,
-  "placementPreferences": ["Senior SDE", "AI Research Scientist"]
-}
-```
-- **Example Response (200)**:
-```json
-{
-  "success": true,
-  "data": {
-    "id": "stud-101-aarav-cse",
-    "name": "Aarav Sharma",
-    "email": "aarav.sharma@campus.edu.in",
-    "year": 3,
-    "branch": "Computer Science and Engineering",
-    "cgpa": 9.1,
-    "academicInterests": ["Artificial Intelligence", "Cloud Computing"],
-    "placementPreferences": ["Senior SDE", "AI Research Scientist"],
-    "extracurricularInterests": ["Competitive Coding", "Hackathons"],
-    "createdAt": "2026-08-01T09:00:00.000Z",
-    "updatedAt": "2026-09-12T10:05:00.000Z"
-  }
-}
-```
+- **Status**: `200 OK` (or `404 Not Found`)
 
 ---
 
 ### `DELETE /api/students/:id`
 Deletes a student profile.
 
-- **Path Parameters**:
-  - `id` (string, required): Student ID
 - **Status**: `200 OK` (or `404 Not Found`)
-- **Example Response (200)**:
-```json
-{
-  "success": true,
-  "data": {
-    "message": "Student stud-101-aarav-cse deleted successfully"
-  }
-}
-```
 
 ---
 
-## 4. Notice Endpoints
-
-### Data Model: `Notice`
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `id` | string (UUID) | Unique notice identifier |
-| `title` | string | Heading/Title of the notice |
-| `content` | string | Full raw circular / notice text |
-| `source` | string (optional) | Issuing department or authority |
-| `category` | string (optional) | Category (`placement`, `scholarship`, `examination`, `academic`, `event`, `club`) |
-| `createdAt` | string (ISO 8601) | Notice publication timestamp |
-| `updatedAt` | string (ISO 8601) | Notice last update timestamp |
-
----
+## 4. Notice & AI Notice Intelligence Endpoints
 
 ### `GET /api/notices`
 Retrieves all raw campus notices.
 
 - **Status**: `200 OK`
-- **Example Response**:
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "notif-201-placement-msft",
-      "title": "Campus Recruitment Drive 2026 - Microsoft SDE",
-      "content": "The T&P Cell announces recruitment for Microsoft India...",
-      "source": "Training & Placement Cell",
-      "category": "placement",
-      "createdAt": "2026-09-10T08:30:00.000Z",
-      "updatedAt": "2026-09-10T08:30:00.000Z"
-    }
-  ]
-}
-```
 
 ---
 
@@ -302,62 +128,73 @@ Retrieves a specific notice by ID.
 Stores a new raw notice.
 
 - **Status**: `201 Created` (or `400 Bad Request`)
-- **Example Request Body**:
+
+---
+
+### `POST /api/notices/analyze` (NVIDIA NIM AI Notice Intelligence)
+Ingests raw college notice text, uses NVIDIA NIM to perform structured extraction, auto-persists the notice and opportunity, and (if `studentId` is provided) evaluates student eligibility and relevance.
+
+- **Status**: `201 Created` (or `400 Bad Request`, `503 NIM_API_ERROR`)
+- **Example Request**:
 ```json
 {
-  "title": "ACM Winter Coding Camp 2026",
-  "content": "Registrations are open for the 7-day intensive Data Structures and Algorithms bootcamp...",
-  "source": "ACM Student Chapter",
-  "category": "club"
+  "content": "The Training & Placement Cell is pleased to announce the on-campus recruitment drive for Microsoft India. Eligible students from B.Tech 4th Year (CSE, IT, ECE) with CGPA >= 8.00 and no active backlogs may apply. Package: 44 LPA CTC. Online coding assessment will be conducted on 25th September 2026. Last date to submit resume on Superset portal is 20th September 2026.",
+  "studentId": "stud-101-aarav-cse"
 }
 ```
-- **Example Response (201)**:
+- **Example Response (201 Created)**:
 ```json
 {
   "success": true,
   "data": {
-    "id": "notice-uuid-1234",
-    "title": "ACM Winter Coding Camp 2026",
-    "content": "Registrations are open for the 7-day intensive Data Structures and Algorithms bootcamp...",
-    "source": "ACM Student Chapter",
-    "category": "club",
-    "createdAt": "2026-09-12T10:10:00.000Z",
-    "updatedAt": "2026-09-12T10:10:00.000Z"
+    "notice": {
+      "id": "c71e8437-0cf1-450f-a496-d249f1dbfa29",
+      "title": "Microsoft India Campus Recruitment Drive",
+      "content": "The Training & Placement Cell is pleased to announce...",
+      "category": "placement",
+      "source": "4th Year Undergraduates (CSE, IT, ECE)",
+      "createdAt": "2026-09-12T10:30:00.000Z",
+      "updatedAt": "2026-09-12T10:30:00.000Z"
+    },
+    "opportunity": {
+      "id": "e229c719-75ea-44a6-9818-5ecf36f6d0f9",
+      "noticeId": "c71e8437-0cf1-450f-a496-d249f1dbfa29",
+      "title": "Microsoft India Campus Recruitment Drive",
+      "category": "placement",
+      "description": "On-campus placement drive for 4th year CSE, IT, ECE with CGPA >= 8.0.",
+      "deadline": "2026-09-20T23:59:59.000Z",
+      "createdAt": "2026-09-12T10:30:00.000Z",
+      "updatedAt": "2026-09-12T10:30:00.000Z"
+    },
+    "extracted": {
+      "title": "Microsoft India Campus Recruitment Drive",
+      "category": "placement",
+      "summary": "On-campus placement drive for Microsoft India offering 44 LPA CTC for 4th-year students.",
+      "deadline": "2026-09-20T23:59:59.000Z",
+      "eligibility": {
+        "branches": ["CSE", "IT", "ECE"],
+        "years": [4],
+        "minCGPA": 8.0
+      },
+      "actions": [
+        "Submit resume on Superset portal by 20th September 2026",
+        "Attend online coding assessment on 25th September 2026"
+      ],
+      "targetGroups": ["4th Year Undergraduates (CSE, IT, ECE)"]
+    },
+    "evaluation": {
+      "eligible": true,
+      "relevanceScore": 94,
+      "priority": "critical",
+      "reason": "You are a Year 4 Computer Science and Engineering student with a CGPA of 8.85. You meet all stated eligibility criteria and aligns with your interest in Artificial Intelligence, Distributed Systems. Recommended Priority: CRITICAL (94/100 relevance score)."
+    }
   }
 }
 ```
 
 ---
 
-### `PATCH /api/notices/:id`
-Updates notice fields.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
-### `DELETE /api/notices/:id`
-Deletes a notice.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
-## 5. Opportunity Endpoints
-
-### Data Model: `Opportunity`
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `id` | string (UUID) | Unique opportunity identifier |
-| `noticeId` | string | ID of the source notice |
-| `title` | string | Opportunity title |
-| `category` | string | `placement`, `scholarship`, `event`, `academic`, `competition` |
-| `description` | string (optional) | Summary description |
-| `deadline` | string (optional, ISO 8601) | Application/registration deadline |
-| `createdAt` | string (ISO 8601) | Creation timestamp |
-| `updatedAt` | string (ISO 8601) | Last update timestamp |
-
----
+## 5. Opportunity & Eligibility Evaluation Endpoints
 
 ### `GET /api/opportunities`
 Retrieves all opportunities.
@@ -367,60 +204,40 @@ Retrieves all opportunities.
 ---
 
 ### `GET /api/opportunities/:id`
-Retrieves a single opportunity by ID.
+Retrieves an opportunity by ID.
 
 - **Status**: `200 OK` (or `404 Not Found`)
 
 ---
 
-### `POST /api/opportunities`
-Creates an opportunity linked to a notice.
+### `GET /api/opportunities/:id/evaluate/:studentId` (or `POST`)
+Evaluates student eligibility, calculates 100-point relevance score, and determines task priority level.
 
-- **Status**: `201 Created` (or `400 Bad Request`)
-- **Example Request Body**:
+- **Status**: `200 OK` (or `404 Not Found`)
+- **Example Response (200)**:
 ```json
 {
-  "noticeId": "notif-201-placement-msft",
-  "title": "Microsoft SDE Full-Time Role",
-  "category": "placement",
-  "description": "Full-time SDE role for 4th year CSE/IT/ECE students.",
-  "deadline": "2026-09-20T23:59:59.000Z"
+  "success": true,
+  "data": {
+    "opportunity": {
+      "id": "opp-301-msft-sde",
+      "title": "Microsoft India Campus SDE Role",
+      "category": "placement",
+      "deadline": "2026-09-20T23:59:59.000Z"
+    },
+    "evaluation": {
+      "eligible": true,
+      "relevanceScore": 88,
+      "priority": "high",
+      "reason": "You are a Year 4 Electronics and Communication Engineering student with a CGPA of 9.15. You meet all stated eligibility criteria. Recommended Priority: HIGH (88/100 relevance score)."
+    }
+  }
 }
 ```
 
 ---
 
-### `PATCH /api/opportunities/:id`
-Updates an opportunity.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
-### `DELETE /api/opportunities/:id`
-Deletes an opportunity.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
-## 6. Task Management Endpoints
-
-### Data Model: `Task`
-| Field | Type | Description |
-| :--- | :--- | :--- |
-| `id` | string (UUID) | Unique task identifier |
-| `studentId` | string | ID of student this task belongs to |
-| `title` | string | Actionable task title |
-| `description` | string (optional) | Detailed action steps / guidelines |
-| `deadline` | string (optional, ISO 8601) | Due date/time |
-| `status` | `"pending"` \| `"completed"` | Task completion status |
-| `priority` | `"low"` \| `"medium"` \| `"high"` \| `"critical"` (optional) | Task urgency |
-| `sourceNoticeId` | string (optional) | Reference notice ID if created from a notice |
-| `createdAt` | string (ISO 8601) | Creation timestamp |
-| `updatedAt` | string (ISO 8601) | Last update timestamp |
-
----
+## 6. Task Management & Automated Generation Endpoints
 
 ### `GET /api/tasks`
 Retrieves all tasks across the system.
@@ -429,218 +246,157 @@ Retrieves all tasks across the system.
 
 ---
 
-### `GET /api/tasks/:id`
-Retrieves a single task by ID.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
 ### `GET /api/tasks/student/:studentId`
 Retrieves all tasks assigned to a specific student.
 
-- **Path Parameters**:
-  - `studentId` (string, required): Student ID
 - **Status**: `200 OK`
-- **Example Response (200)**:
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "id": "task-403-aarav-hacksprint-abstract",
-      "studentId": "stud-101-aarav-cse",
-      "title": "Submit team project abstract for HackSprint 2026 AI Track",
-      "description": "Finalize architecture diagram and problem statement.",
-      "deadline": "2026-09-28T23:59:59.000Z",
-      "status": "pending",
-      "priority": "high",
-      "sourceNoticeId": "notif-204-hackathon-hacksprint",
-      "createdAt": "2026-09-03T11:00:00.000Z",
-      "updatedAt": "2026-09-03T11:00:00.000Z"
-    }
-  ]
-}
-```
 
 ---
 
 ### `POST /api/tasks`
-Creates a task for a student.
+Manually creates a task for a student.
 
-- **Status**: `201 Created` (or `400 Bad Request`)
-- **Example Request Body**:
+- **Status**: `201 Created`
+
+---
+
+### `POST /api/tasks/from-notice`
+Generates actionable tasks for a student directly from an ingested notice's action items and assigns personalized priority.
+
+- **Status**: `201 Created` (or `404 Not Found`)
+- **Example Request**:
 ```json
 {
-  "studentId": "stud-101-aarav-cse",
-  "title": "Submit assignment on Kubernetes Pod Networking",
-  "description": "Upload PDF to Google Classroom assignment folder.",
-  "deadline": "2026-09-25T18:00:00.000Z",
-  "status": "pending",
-  "priority": "medium"
+  "noticeId": "notif-201-placement-msft",
+  "studentId": "stud-102-priya-ece"
 }
 ```
-- **Example Response (201)**:
+- **Example Response (201 Created)**:
 ```json
 {
   "success": true,
   "data": {
-    "id": "task-uuid-5678",
-    "studentId": "stud-101-aarav-cse",
-    "title": "Submit assignment on Kubernetes Pod Networking",
-    "description": "Upload PDF to Google Classroom assignment folder.",
-    "deadline": "2026-09-25T18:00:00.000Z",
-    "status": "pending",
-    "priority": "medium",
-    "createdAt": "2026-09-12T10:15:00.000Z",
-    "updatedAt": "2026-09-12T10:15:00.000Z"
+    "tasks": [
+      {
+        "id": "6732cf05-4c01-4475-8025-a134a4d62329",
+        "studentId": "stud-102-priya-ece",
+        "title": "Last date to submit your resume on the Superset T&P portal is 20th September 2026, 11:59 PM",
+        "description": "Action item generated from notice: Campus Recruitment Drive 2026 - Microsoft SDE & Support Engineering",
+        "deadline": "2026-09-20T23:59:59.000Z",
+        "status": "pending",
+        "priority": "high",
+        "sourceNoticeId": "notif-201-placement-msft",
+        "createdAt": "2026-09-12T10:35:00.000Z",
+        "updatedAt": "2026-09-12T10:35:00.000Z"
+      }
+    ],
+    "count": 1
   }
 }
 ```
 
 ---
 
-### `PATCH /api/tasks/:id`
-Updates task status, priority, or content.
+## 7. Google Calendar Integration Endpoint
 
-- **Status**: `200 OK` (or `404 Not Found`)
-- **Example Request Body**:
+### `POST /api/calendar/create`
+Creates a Google Calendar event for an actionable task deadline. Gracefully responds with configuration instructions if Google credentials are not set.
+
+- **Status**: `200 OK` (or `404 Not Found` if taskId missing)
+- **Example Request**:
 ```json
 {
-  "status": "completed"
+  "taskId": "task-401-priya-msft-resume"
+}
+```
+- **Example Response (When Unconfigured - Safe Fallback)**:
+```json
+{
+  "success": true,
+  "data": {
+    "status": "unconfigured",
+    "configured": false,
+    "message": "Google Calendar API credentials are not configured in backend/.env. Task deadline remains actively tracked in your Smart Campus local planner.",
+    "task": {
+      "id": "task-401-priya-msft-resume",
+      "title": "Submit resume on Superset portal for Microsoft recruitment drive",
+      "deadline": "2026-09-20T23:59:59.000Z"
+    }
+  }
 }
 ```
 
 ---
 
-### `DELETE /api/tasks/:id`
-Deletes a task.
-
-- **Status**: `200 OK` (or `404 Not Found`)
-
----
-
-## 7. Consolidated Dashboard Endpoint
+## 8. Consolidated Student Dashboard
 
 ### `GET /api/dashboard/:studentId`
-Provides a single aggregated view containing student information, upcoming tasks, opportunities, and recent campus notices.
+Returns an aggregated campus view for the student (profile, upcoming tasks, opportunities, recent notices).
 
-- **Path Parameters**:
-  - `studentId` (string, required): Student ID
-- **Status**: `200 OK` (or `404 Not Found` if student does not exist)
+- **Status**: `200 OK` (or `404 Not Found`)
 - **Example Request**:
 ```http
 GET /api/dashboard/stud-101-aarav-cse HTTP/1.1
 Host: localhost:5001
 ```
-- **Example Response (200 OK)**:
+
+---
+
+## 9. Campus AI Agent Chat Endpoint
+
+### `POST /api/agent/chat` (NVIDIA NIM Tool-Calling Agent)
+Natural-language conversational campus agent powered by NVIDIA NIM. Automatically decides when to call backend tools to fetch real student profiles, upcoming tasks, opportunities, and eligibility evaluations.
+
+- **Status**: `200 OK` (or `400 Bad Request`, `503 NIM_API_ERROR`)
+- **Example Request 1**:
+```json
+{
+  "studentId": "stud-101-aarav-cse",
+  "message": "What do I need to complete this week?"
+}
+```
+- **Example Response 1**:
 ```json
 {
   "success": true,
   "data": {
-    "student": {
-      "id": "stud-101-aarav-cse",
-      "name": "Aarav Sharma",
-      "email": "aarav.sharma@campus.edu.in",
-      "year": 3,
-      "branch": "Computer Science and Engineering",
-      "cgpa": 8.85,
-      "academicInterests": ["Artificial Intelligence", "Distributed Systems", "Cloud Computing"],
-      "placementPreferences": ["Software Development Engineer", "Full Stack Developer", "AI/ML Engineer"],
-      "extracurricularInterests": ["Competitive Coding", "Robotics Club", "Hackathons"],
-      "createdAt": "2026-08-01T09:00:00.000Z",
-      "updatedAt": "2026-09-01T10:00:00.000Z"
-    },
-    "upcomingTasks": [
+    "message": "Hi Aarav! You have 2 pending tasks upcoming:\n1. **Submit team project abstract for HackSprint 2026 AI Track** (Deadline: 28th September 2026 - High Priority)\n2. **Select Open Elective courses on ERP portal** (Deadline: 22nd September 2026 - Medium Priority)\n\nYou have also completed your Google Cloud Skills Boost lab exercises!",
+    "toolCallsExecuted": [
       {
-        "id": "task-403-aarav-hacksprint-abstract",
-        "studentId": "stud-101-aarav-cse",
-        "title": "Submit team project abstract for HackSprint 2026 AI Track",
-        "description": "Finalize architecture diagram and problem statement.",
-        "deadline": "2026-09-28T23:59:59.000Z",
-        "status": "pending",
-        "priority": "high",
-        "sourceNoticeId": "notif-204-hackathon-hacksprint",
-        "createdAt": "2026-09-03T11:00:00.000Z",
-        "updatedAt": "2026-09-03T11:00:00.000Z"
-      },
-      {
-        "id": "task-404-aarav-elective-select",
-        "studentId": "stud-101-aarav-cse",
-        "title": "Select Open Elective courses on ERP portal",
-        "description": "Choose Applied Machine Learning as 1st preference.",
-        "deadline": "2026-09-22T17:00:00.000Z",
-        "status": "pending",
-        "priority": "medium",
-        "sourceNoticeId": "notif-205-academic-elective",
-        "createdAt": "2026-09-02T10:00:00.000Z",
-        "updatedAt": "2026-09-02T10:00:00.000Z"
-      },
-      {
-        "id": "task-405-aarav-cloud-cert",
-        "studentId": "stud-101-aarav-cse",
-        "title": "Complete Google Cloud Skills Boost lab exercises",
-        "description": "Finish Generative AI Fundamentals badge.",
-        "deadline": "2026-09-30T23:59:59.000Z",
-        "status": "completed",
-        "priority": "low",
-        "createdAt": "2026-08-20T14:00:00.000Z",
-        "updatedAt": "2026-09-01T16:00:00.000Z"
-      }
-    ],
-    "opportunities": [
-      {
-        "id": "opp-301-msft-sde",
-        "noticeId": "notif-201-placement-msft",
-        "title": "Microsoft India Campus SDE Role",
-        "category": "placement",
-        "description": "On-campus placement opportunity for 4th-year students with CGPA >= 8.0.",
-        "deadline": "2026-09-20T23:59:59.000Z",
-        "createdAt": "2026-09-10T08:35:00.000Z",
-        "updatedAt": "2026-09-10T08:35:00.000Z"
-      },
-      {
-        "id": "opp-303-hacksprint-hackathon",
-        "noticeId": "notif-204-hackathon-hacksprint",
-        "title": "HackSprint 2026 Hackathon Team Registration",
-        "category": "event",
-        "description": "36-hour national inter-college hackathon with INR 2.5 Lakh prize pool.",
-        "deadline": "2026-09-28T23:59:59.000Z",
-        "createdAt": "2026-09-02T15:35:00.000Z",
-        "updatedAt": "2026-09-02T15:35:00.000Z"
-      }
-    ],
-    "recentNotices": [
-      {
-        "id": "notif-201-placement-msft",
-        "title": "Campus Recruitment Drive 2026 - Microsoft SDE & Support Engineering",
-        "content": "The Training & Placement Cell (T&P) is pleased to announce...",
-        "source": "Training & Placement Cell",
-        "category": "placement",
-        "createdAt": "2026-09-10T08:30:00.000Z",
-        "updatedAt": "2026-09-10T08:30:00.000Z"
-      },
-      {
-        "id": "notif-202-scholarship-nsp",
-        "title": "National Merit-cum-Means Post-Matric Scholarship Scheme 2026-27",
-        "content": "Applications are invited from undergraduate students...",
-        "source": "Dean of Student Welfare Office",
-        "category": "scholarship",
-        "createdAt": "2026-09-08T10:00:00.000Z",
-        "updatedAt": "2026-09-08T10:00:00.000Z"
+        "tool": "get_upcoming_tasks",
+        "args": { "studentId": "stud-101-aarav-cse" },
+        "result": { "total": 3 }
       }
     ]
   }
 }
 ```
 
-- **Example Response (404 Not Found)**:
+- **Example Request 2**:
 ```json
 {
-  "success": false,
-  "error": {
-    "code": "STUDENT_NOT_FOUND",
-    "message": "Student with id unknown-student-id not found for dashboard"
+  "studentId": "stud-101-aarav-cse",
+  "message": "Which placement opportunities am I eligible for?"
+}
+```
+- **Example Response 2**:
+```json
+{
+  "success": true,
+  "data": {
+    "message": "Based on your student profile (Year 3 CSE, 8.85 CGPA), here are your opportunities:\n- **Microsoft India Campus SDE Role**: On-campus drive with deadline on 20th September 2026.",
+    "toolCallsExecuted": [
+      {
+        "tool": "get_student_profile",
+        "args": { "studentId": "stud-101-aarav-cse" },
+        "result": { "id": "stud-101-aarav-cse", "name": "Aarav Sharma", "year": 3, "cgpa": 8.85 }
+      },
+      {
+        "tool": "search_opportunities",
+        "args": { "category": "placement" },
+        "result": { "total": 1 }
+      }
+    ]
   }
 }
 ```

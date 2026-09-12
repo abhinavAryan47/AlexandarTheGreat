@@ -45,6 +45,25 @@ export class TaskController {
     }
   };
 
+  createFromNotice = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { noticeId, studentId } = req.body;
+      if (!noticeId || !studentId) {
+        ApiResponse.error(res, 'VALIDATION_ERROR', 'noticeId and studentId are required', 400);
+        return;
+      }
+
+      const tasks = await this.service.createTasksFromNotice(noticeId, studentId);
+      ApiResponse.success(res, { tasks, count: tasks.length }, 201);
+    } catch (error: any) {
+      if (error.message && error.message.includes('not found')) {
+        ApiResponse.error(res, 'NOT_FOUND', error.message, 404);
+        return;
+      }
+      next(error);
+    }
+  };
+
   update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const task = await this.service.updateTask(req.params.id, req.body);

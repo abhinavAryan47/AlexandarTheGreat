@@ -6,6 +6,7 @@ import { createTaskSchema, updateTaskSchema } from '../schemas/task.schema';
 const router = Router();
 
 router.get('/', taskController.getAll);
+router.post('/from-notice', taskController.createFromNotice);
 router.get('/student/:studentId', taskController.getByStudentId);
 router.get('/:id', taskController.getById);
 router.post('/', validateRequest(createTaskSchema), taskController.create);

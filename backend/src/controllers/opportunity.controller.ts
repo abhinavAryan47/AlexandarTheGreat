@@ -61,6 +61,25 @@ export class OpportunityController {
       next(error);
     }
   };
+
+  evaluateForStudent = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { id, studentId } = req.params;
+      const result = await this.service.evaluateForStudent(id, studentId);
+      if (!result) {
+        ApiResponse.error(
+          res,
+          'EVALUATION_TARGET_NOT_FOUND',
+          `Opportunity or student not found with ids (${id}, ${studentId})`,
+          404
+        );
+        return;
+      }
+      ApiResponse.success(res, result);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export const opportunityController = new OpportunityController();

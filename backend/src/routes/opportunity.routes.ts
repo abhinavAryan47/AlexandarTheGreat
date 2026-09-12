@@ -11,4 +11,8 @@ router.post('/', validateRequest(createOpportunitySchema), opportunityController
 router.patch('/:id', validateRequest(updateOpportunitySchema), opportunityController.update);
 router.delete('/:id', opportunityController.delete);
 
+// Student Evaluation Endpoints
+router.post('/:id/evaluate/:studentId', opportunityController.evaluateForStudent);
+router.get('/:id/evaluate/:studentId', opportunityController.evaluateForStudent);
+
 export default router;

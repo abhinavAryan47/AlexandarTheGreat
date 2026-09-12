@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { NoticeService, noticeService } from '../services/notice.service';
+import { NoticeAnalyzerService, noticeAnalyzerService } from '../ai/notice-analyzer.service';
 import { ApiResponse } from '../utils/api-response';
 
 export class NoticeController {
-  constructor(private service: NoticeService = noticeService) {}
+  constructor(
+    private service: NoticeService = noticeService,
+    private analyzer: NoticeAnalyzerService = noticeAnalyzerService
+  ) {}
 
   getAll = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -58,6 +62,20 @@ export class NoticeController {
       }
       ApiResponse.success(res, { message: `Notice ${req.params.id} deleted successfully` });
     } catch (error) {
+      next(error);
+    }
+  };
+
+  analyze = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const { content, studentId } = req.body;
+      const result = await this.analyzer.analyzeNotice(content, studentId);
+      ApiResponse.success(res, result, 201);
+    } catch (error: any) {
+      if (error.message && error.message.includes('NVIDIA NIM')) {
+        ApiResponse.error(res, 'NIM_API_ERROR', error.message, 503);
+        return;
+      }
       next(error);
     }
   };
